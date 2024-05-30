@@ -12,6 +12,16 @@ Hackintosh combojack support for alc236 layout 68/alc256 layout 56/alc289 layout
 -  Fix on sleep wake
 -  Bug fix
 
+## Building
+
+### From GitHub:
+
+Install Xcode, clone the GitHub repo and enter the top-level directory.  Then:
+
+```sh
+xcodebuild -configuration Release
+```
+
 Credits
 -----
 
