@@ -1,6 +1,6 @@
 # ComboJack
 
-![screen](./ComboJack_Installer/Screenshot.png)
+![screen](./Installer/Screenshot.png)
 
 Hackintosh combojack support for alc236 layout 68/alc256 layout 56/alc289 layout 68/alc295 layout 33.
 
