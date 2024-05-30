@@ -28,3 +28,4 @@ DerivedData/
 ## Gcc Patch
 /*.gcno
 Installer/ComboJack
+.idea
