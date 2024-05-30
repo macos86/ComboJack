@@ -15,6 +15,10 @@
 		3D086A6A21BD498700FFD44C /* PCI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCI.m; sourceTree = "<group>"; };
 		3D086A6B21BD498700FFD44C /* PCI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCI.h; sourceTree = "<group>"; };
 		3D2BE1A921BD50C300FA7A55 /* Tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tables.h; sourceTree = "<group>"; };
+		77B667222C08817C00A9170D /* com.ComboJack.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = com.ComboJack.plist; sourceTree = "<group>"; };
+		77B667232C08818A00A9170D /* uninstall.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = uninstall.command; sourceTree = "<group>"; };
+		77B667242C08818A00A9170D /* Headphone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Headphone.icns; sourceTree = "<group>"; };
+		77B667252C08818A00A9170D /* install.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = install.command; sourceTree = "<group>"; };
 		77E5F6D22C04873A001B0FCB /* hda-verb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hda-verb.h"; sourceTree = "<group>"; };
 		CB3D2DA71F0DFEDE00CF6EBA /* hda-verb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "hda-verb.m"; sourceTree = "<group>"; };
 		CB3D58431F0A7DE000F741BA /* ComboJack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ComboJack; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,10 +35,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77B667212C08802A00A9170D /* Installer */ = {
+			isa = PBXGroup;
+			children = (
+				77B667242C08818A00A9170D /* Headphone.icns */,
+				77B667252C08818A00A9170D /* install.command */,
+				77B667232C08818A00A9170D /* uninstall.command */,
+				77B667222C08817C00A9170D /* com.ComboJack.plist */,
+			);
+			path = Installer;
+			sourceTree = "<group>";
+		};
 		CB3D583A1F0A7DE000F741BA = {
 			isa = PBXGroup;
 			children = (
 				CB3D58451F0A7DE000F741BA /* ComboJack */,
+				77B667212C08802A00A9170D /* Installer */,
 				CB3D58441F0A7DE000F741BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -129,8 +145,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#cd \"${TARGET_BUILD_DIR}\"\n#cp -f ComboJack ../../../ComboJack_Installer/\n";
+			shellPath = /bin/bash;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#cd \"${TARGET_BUILD_DIR}\"\nif [ \"$CONFIGURATION\" == \"Release\" ]; then\n    cp -f ${TARGET_BUILD_DIR}/ComboJack Installer/\n\n    cd Installer\n    archive=\"${PRODUCT_NAME}-${MODULE_VERSION}-$(echo $CONFIGURATION | tr /a-z/ /A-Z/).zip\"\n    rm -rf *.zip\n    zip -qry -FS \"${archive}\" *\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
