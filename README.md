@@ -19,3 +19,4 @@ Credits
 - [vit9696](https://github.com/vit9696) for [AppleALC](https://github.com/acidanthera/AppleALC)
 - [mbarbierato](https://github.com/mbarbierato) for developing
 - [Lorys89](https://github.com/Lorys89) for setting alc verbs and add codec support
+- [Linux code Source](https://github.com/torvalds/linux/blob/master/sound/pci/hda/patch_realtek.c)
