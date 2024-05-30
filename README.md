@@ -2,7 +2,7 @@
 
 ![screen](./ComboJack_Installer/Screenshot.png)
 
-Hackintosh combojack support for alc236 layout 68/alc289 layout 68/alc295 layout 33.
+Hackintosh combojack support for alc236 layout 68/alc256 layout 56/alc289 layout 68/alc295 layout 33.
 
 -  Use bootargs `alcverbs=1` or DeviceProperties to audio pci-root `alc-verbs | DATA | 01000000`
 -  For install run ComboJack_Installer/install.command and reboot
