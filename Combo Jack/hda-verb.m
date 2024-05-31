@@ -345,27 +345,15 @@ static uint32_t headset(void)
 
 void JackBehavior(void)
 {
-    int counter = 4;
-    
-    while (run) // Poll headphone jack state
+    while(run && ((GetJackStatus() & 0x80000000) == 0x80000000)) // Poll headphone jack state
     {
-        usleep(250000); // Polling frequency (seconds): use usleep for microseconds if finer-grained control is needed
-        
+        sleep(1); // Polling frequency (seconds): use usleep for microseconds if finer-grained control is needed
         if (awake)
         {
             awake = false;
             break;
         }
-        
-        if ((GetJackStatus() & 0x80000000) != 0x80000000)
-        {
-            if (--counter < 0)
-                break;
-        }
-        else
-            counter = 4;
     }
-    
     if (run) // If process is killed, maintain current state
     {
         if (!isSleeping) {
@@ -672,8 +660,6 @@ int main(void)
         @"Cancel", @"btnCancel",
         nil];
     
-    int counter = 4;
-    
     while(run) // Poll headphone jack state
     {
         if (!isSleeping){
@@ -681,30 +667,23 @@ int main(void)
             if (jackstat == -1) // 0xFFFFFFFF means jack not ready yet
             {
                 fprintf(stderr, "Jack not ready. Checking again in 1 second...\n");
-                counter = 4;
             }
             else if ((jackstat & 0x80000000) == 0x80000000)
             {
-                if (--counter < 0)
+                fprintf(stderr, "Jack sense detected! Displaying menu...\n");
+                if (CFPopUpMenu() == 0)
                 {
-                    fprintf(stderr, "Jack sense detected! Displaying menu...\n");
-                    counter = 4;
-                    if (CFPopUpMenu() == 0)
-                    {
-                        JackBehavior();
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    JackBehavior();
+                }
+                else
+                {
+                    break;
                 }
             }
-            else
-                counter = 4;
         }
         
         //if (awake) awake = false;
-        usleep(250000); // Sleep delay (seconds): use usleep for microseconds if fine-grained control is needed
+        sleep(1); // Sleep delay (seconds): use usleep for microseconds if fine-grained control is needed
     }
 
     sem_unlink("ComboJack_Watcher");
