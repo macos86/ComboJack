@@ -229,10 +229,10 @@ static uint32_t unplugged(void)
                 AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0xD289);
                 break;
             case 0x10ec0295:
-                AlcVerbCommand(0x12, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x20);
-                AlcVerbCommand(0x14, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x40);
-                AlcVerbCommand(0x19, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x02);
-                AlcVerbCommand(0x21, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x00);
+                //AlcVerbCommand(0x12, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x20);
+                //AlcVerbCommand(0x14, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x40);
+                AlcVerbCommand(0x19, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x24);
+                //AlcVerbCommand(0x21, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x00);
                 AlcVerbCommand(0x20, AC_VERB_SET_COEF_INDEX,         0x45);
                 AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0xD289);
                 break;
