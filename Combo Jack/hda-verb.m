@@ -262,8 +262,15 @@ static uint32_t headphones(void)
                 AlcVerbCommand(0x19, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x24);
                 break;
             case 0x10ec0255:
+                // Fix for Dell ALC3234/ALC255: headphone-only (no mic)
+                // Coeff 0x06 = 0x6100 (bit2=0, disable mic sensing)
+                // Coeff 0x45 = 0xD489, Coeff 0x46 = 0x0074 (from real dump)
+                AlcVerbCommand(0x20, AC_VERB_SET_COEF_INDEX,         0x06);
+                AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0x6100);
                 AlcVerbCommand(0x20, AC_VERB_SET_COEF_INDEX,         0x45);
                 AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0xD489);
+                AlcVerbCommand(0x20, AC_VERB_SET_COEF_INDEX,         0x46);
+                AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0x0074);
                 AlcVerbCommand(0x19, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x24);
                 break;
             case 0x10ec0256:
@@ -308,9 +315,20 @@ static uint32_t headset(void)
                 usleep(350000);
                 break;
             case 0x10ec0255:
+                // Fix for Dell ALC3234/ALC255 (subsystem 0x1028085c)
+                // Derived from real Linux codec dumps with headset inserted:
+                // 1. Set node 0x19 (headset mic pin) to IN + VREF_80 to power the mic
+                // 2. Set Coeff 0x06 bit2=1 (0x6104) to enable CTIA headset mic sensing
+                // 3. Set Coeff 0x45 = 0xD489 (headset mode, matches real hw dump)
+                // 4. Set Coeff 0x46 = 0x0074 (enables mic path, matches real hw dump)
+                // Without Coeff 0x46 the mic input path stays disabled
                 AlcVerbCommand(0x19, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x24);
+                AlcVerbCommand(0x20, AC_VERB_SET_COEF_INDEX,         0x06);
+                AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0x6104);
                 AlcVerbCommand(0x20, AC_VERB_SET_COEF_INDEX,         0x45);
-                AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0xD689);
+                AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0xD489);
+                AlcVerbCommand(0x20, AC_VERB_SET_COEF_INDEX,         0x46);
+                AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0x0074);
                 usleep(350000);
                 break;
             case 0x10ec0256:
