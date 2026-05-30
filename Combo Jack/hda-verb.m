@@ -310,7 +310,7 @@ static uint32_t headset(void)
             case 0x10ec0255:
                 AlcVerbCommand(0x19, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x24);
                 AlcVerbCommand(0x20, AC_VERB_SET_COEF_INDEX,         0x45);
-                AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0xD489);
+                AlcVerbCommand(0x20, AC_VERB_SET_PROC_COEF,          0xD689);
                 usleep(350000);
                 break;
             case 0x10ec0256:
